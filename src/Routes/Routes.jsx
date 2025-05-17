@@ -7,34 +7,46 @@ import CheakOut from "../Pages/CheakOut/CheakOut";
 import Bookings from "../Pages/Bookings/Bookings";
 import PrivetRoutes from "./PrivetRoutes";
 
-const router =createBrowserRouter([
-   {
-    path:"/",
-    element:<MainLayout></MainLayout>,
-    children:[
-        {
-            path:'/',
-            element:<Home></Home>
-        },
-        {
-            path:"/login",
-            element:<Login></Login>
-        },
-        {
-            path:'/signup',
-            element:<SignUp></SignUp>
-        },
-        {
-            path:'/cheakout/:id',
-            element:<PrivetRoutes><CheakOut></CheakOut></PrivetRoutes> ,
-            loader:({params})=>fetch(`http://localhost:5000/services/${params.id}`),
-        },
-        {
-            path:'/bookings',
-            element: <PrivetRoutes> <Bookings></Bookings></PrivetRoutes>
-        }
-    ]
-   }
-])
+const router = createBrowserRouter([
+  {
+    path: "/",
+    element: <MainLayout></MainLayout>,
+    children: [
+      {
+        path: "/",
+        element: <Home></Home>,
+      },
+      {
+        path: "/login",
+        element: <Login></Login>,
+      },
+      {
+        path: "/signup",
+        element: <SignUp></SignUp>,
+      },
+      {
+        path: "/cheakout/:id",
+        element: (
+          <PrivetRoutes>
+            <CheakOut></CheakOut>
+          </PrivetRoutes>
+        ),
+        loader: ({ params }) =>
+          fetch(
+            `https://car-doctor-server-dusky-ten.vercel.app/services/${params.id}`
+          ),
+      },
+      {
+        path: "/bookings",
+        element: (
+          <PrivetRoutes>
+            {" "}
+            <Bookings></Bookings>
+          </PrivetRoutes>
+        ),
+      },
+    ],
+  },
+]);
 
 export default router;
